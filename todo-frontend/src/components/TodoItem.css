@@ -1,0 +1,93 @@
+.todo-check {
+  -webkit-appearance: none;
+  background-color: #fff;
+  border: 1px solid #cacece;
+  padding: 15px;
+  border-radius: 30px;
+  display: inline-block;
+  position: relative;
+  outline: none;
+}
+
+.todo-check:checked:after {
+  content: "\2714";
+  color: rgb(93, 194, 175);
+  font-size: 24px;
+  font-weight: lighter;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(4px, -3px);
+}
+
+.completedItem {
+  color: #d9d9d9;
+  text-decoration: line-through;
+}
+
+.sub-item {
+  padding: 8px 8px 8px 20px !important;
+  border: 0.2px solid lightgray;
+  background: rgba(0, 0, 0, 0.003) !important;
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03) !important;
+  outline: none;
+  flex-grow: 1;
+}
+.sub-task-title {
+  padding-top: 10px;
+  padding-left: 40px;
+  text-align: left;
+  margin: 0;
+}
+
+.footer {
+  color: #777;
+  padding: 10px 15px;
+  height: 20px;
+  text-align: center;
+  border-top: 1px solid #e6e6e6;
+}
+.footer:before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 50px;
+  overflow: hidden;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6,
+    0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6,
+    0 17px 2px -6px rgba(0, 0, 0, 0.2);
+}
+
+.todo-count {
+  float: left;
+  text-align: left;
+}
+
+.filters {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+.filters li {
+  display: inline;
+}
+.filters li span {
+  color: inherit;
+  margin: 3px;
+  padding: 3px 7px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+.filters li span:hover {
+  border-color: rgba(67, 216, 22, 0.4);
+}
+
+.activeView {
+  border-color: rgba(67, 216, 22, 0.6) !important;
+}
