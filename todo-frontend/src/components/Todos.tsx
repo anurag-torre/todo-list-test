@@ -6,7 +6,11 @@ import { addItemToList, addSubItemToList, deleteCompleted, deleteItemFromList, d
 
 import './Todos.css'
 
-export default function Todos() {
+interface TodosProps {
+    setToken: Function
+}
+
+export default function Todos({ setToken }: TodosProps) {
     const [todoItem, setTodoItem] = useState("");
     const [todoItemList, setTodoItemList] = useState<todoItem[]>([]);
     const [view, setView] = useState("All")
@@ -35,10 +39,10 @@ export default function Todos() {
 
     function getActiveCountText() {
         const count = todoItemList.filter(e => !e.completed).length
-        return [<strong >{count}</strong>,
-        <span> </span>,
-        <span >{`item${count !== 1 ? 's' : ''}`}</span>,
-        <span > left</span>]
+        return [<strong key="itemCount">{count}</strong>,
+        <span key="space"> </span>,
+        <span key="itemsize">{`item${count !== 1 ? 's' : ''}`}</span>,
+        <span key="left"> left</span>]
     }
 
     async function checkAndAddTodoItem(e: KeyboardEvent): Promise<void> {
@@ -110,5 +114,6 @@ export default function Todos() {
                 {todoItemList.some(e => e.completed) && <button className="clear-completed" onClick={deleteCompletedItems}>Clear completed</button>}
             </footer>
         </div>
+        <button style={{ float: "right", marginTop: "2em" }} onClick={() => setToken(null)}>SignOut?</button>
     </section>
 }

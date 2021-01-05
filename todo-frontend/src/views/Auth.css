@@ -1,0 +1,53 @@
+.authForm {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.authForm label {
+  font-size: 24px;
+  float: left;
+}
+
+.authForm input {
+  font-size: 20px;
+  float: right;
+  outline: none;
+  border: 1px solid #764abc;
+}
+
+.authForm td {
+  padding: 10px;
+}
+
+.loginBtn,
+.regBtn {
+  width: 200px;
+  margin: 10px;
+  padding: 10px;
+  font-size: 24px;
+  outline: none;
+  cursor: pointer;
+}
+
+.loginBtn {
+  background: #764abc;
+  color: #fff;
+}
+
+.regBtn {
+  color: #764abc;
+}
+
+.errorClose {
+  display: inline;
+  font-size: 1em;
+  background-color: red;
+  color: white;
+  padding: 2px;
+  margin: 2px;
+  cursor: pointer;
+  z-index: 100;
+}

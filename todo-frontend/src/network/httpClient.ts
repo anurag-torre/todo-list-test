@@ -3,6 +3,12 @@ import todoItem, { subItem } from "../interfaces/todoItem";
 
 const apiUrl = "http://localhost:5000/api";
 
+axios.interceptors.request.use(function (config) {
+  const token = window.sessionStorage.getItem("token");
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
 export function getAllTodos() {
   return axios
     .get(`${apiUrl}/item`)
@@ -87,5 +93,41 @@ export async function deleteAllCompleted() {
     return data.data;
   } catch (error) {
     return error;
+  }
+}
+
+export async function login(
+  username: string | undefined,
+  password: string | undefined
+) {
+  try {
+    const data = await axios.post(`${apiUrl}/auth/login`, {
+      email: username,
+      password: password,
+    });
+    if (data.status === 401) {
+      window.sessionStorage.removeItem("token");
+    }
+    return data.data;
+  } catch (error) {
+    return error.response;
+  }
+}
+
+export async function signup(
+  username: string | undefined,
+  password: string | undefined
+) {
+  try {
+    const data = await axios.post(`${apiUrl}/auth/signup`, {
+      email: username,
+      password: password,
+    });
+    if (data.status === 401) {
+      window.sessionStorage.removeItem("token");
+    }
+    return data.data;
+  } catch (error) {
+    return error.response;
   }
 }
