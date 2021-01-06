@@ -1,15 +1,21 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
-require("./config/dbConfig");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("../swagger.json");
 const mainController = require("./controller/mainController");
 
-const app = express();
-app.use(cors());
+require("./config/dbConfig");
 
+const app = express();
+
+app.use(cors());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 app.use("/api", mainController);
 
