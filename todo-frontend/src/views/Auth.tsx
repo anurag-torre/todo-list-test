@@ -14,7 +14,7 @@ export default function Auth({ setToken }: AuthProps) {
 
     async function authUser(event: SyntheticEvent) {
         event.preventDefault()
-        
+
         let data;
         if (view === 'Login') {
             data = await login(userRef.current?.value, passRef.current?.value)
@@ -43,31 +43,33 @@ export default function Auth({ setToken }: AuthProps) {
                 <button className={view === 'Register' ? 'loginBtn' : 'regBtn'} onClick={() => setView("Register")}>New User?</button>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <table style={{ alignSelf: 'center' }}>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <label htmlFor="username" >Username </label>
-                            </td>
-                            <td >
-                                <input ref={userRef} required autoComplete="off" aria-autocomplete="none" name="username" type="text" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label htmlFor="password">Password</label>
-                            </td>
-                            <td>
-                                <input ref={passRef} required autoComplete="off" aria-autocomplete="none" name="password" type="password" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colSpan={2} rowSpan={2} style={{ textAlign: "center", width: '100%' }}>
-                                <button className='loginBtn' type="submit" onClick={authUser}>{view}</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <form onSubmit={authUser}>
+                    <table style={{ alignSelf: 'center' }}>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label htmlFor="email" >Email </label>
+                                </td>
+                                <td >
+                                    <input ref={userRef} required autoComplete="off" aria-autocomplete="none" name="email" type="email" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label htmlFor="password">Password</label>
+                                </td>
+                                <td>
+                                    <input ref={passRef} required autoComplete="off" aria-autocomplete="none" name="password" type="password" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colSpan={2} rowSpan={2} style={{ textAlign: "center", width: '100%' }}>
+                                    <button className='loginBtn' type="submit" >{view}</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
             </div>
         </div>
     )
