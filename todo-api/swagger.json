@@ -1,0 +1,474 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Todo-API",
+    "version": "1.0.0",
+    "description": "The server for the Todo App.Authentication is enabled. Hence you will have to pass the token recieved after login or register in order to access the resources through the other endpoints."
+  },
+  "host": "localhost:5000",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "User Authentication related endoints that allow a user to login or register"
+    },
+    {
+      "name": "Todo",
+      "description": "Todo Item related endpoints that allows an authenticated user to do CRUD operations related to a Todo Item/Task"
+    },
+    {
+      "name": "Sub Item",
+      "description": "Todo Sub Task related endpoints that allows an authenticated user to do CRUD operations related to a Todo Sub Item/Task"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {},
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Add a new user to the App",
+        "description": "",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User to be added",
+            "schema": {
+              "$ref": "#/definitions/AuthReq"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User Created",
+            "schema": {
+              "$ref": "#/definitions/Auth"
+            }
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Check if a user is valid",
+        "description": "",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User to be authenticated",
+            "schema": {
+              "$ref": "#/definitions/AuthReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Auth Successful",
+            "schema": {
+              "$ref": "#/definitions/Auth"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/item/": {
+      "get": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Get All Todos",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Fetch successful",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Todo"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Todo"
+        ],
+        "description": "",
+        "summary": "Add a Todo Item to the Todo list",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "User to be added",
+            "schema": {
+              "$ref": "#/definitions/TodoReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo Item Added",
+            "schema": {
+              "$ref": "#/definitions/Todo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Todo"
+        ],
+        "description": "",
+        "summary": "Update a Todo Item in the Todo list",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "User to be Modified",
+            "schema": {
+              "$ref": "#/definitions/TodoReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo Item Modified successfully",
+            "schema": {
+              "$ref": "#/definitions/Todo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Error modifying Todo"
+          }
+        }
+      }
+    },
+    "/item/{_id}": {
+      "delete": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Delete a Todo Item from the Todo list",
+        "description": "",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "type": "string",
+            "description": "ID of Todo to delete",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item Delete Successful",
+            "schema": {
+              "$ref": "#/definitions/Todo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/item/items/completed": {
+      "delete": {
+        "tags": [
+          "Todo"
+        ],
+        "description": "",
+        "summary": "Delete all completed Todo Items from the list.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Completed Item delete successfull",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Todo"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/subItem/": {
+      "post": {
+        "tags": [
+          "Sub Item"
+        ],
+        "description": "",
+        "summary": "Add a Todo Sub Item to the Todo Item",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "SubItem to be added",
+            "schema": {
+              "$ref": "#/definitions/SubItemReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SubItem Added Successfully",
+            "schema": {
+              "$ref": "#/definitions/SubItem"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Sub Item"
+        ],
+        "description": "",
+        "summary": "Delete a Todo Sub Item from the Todo Item",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteSubItemReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SubItem Deleted successfully",
+            "schema": {
+              "$ref": "#/definitions/SubItem"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Sub Item"
+        ],
+        "description": "",
+        "summary": "Update a Todo Sub Item in the Todo Item",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "SubItem to be Modified",
+            "schema": {
+              "$ref": "#/definitions/SubItemReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SubItem Modified successfully",
+            "schema": {
+              "$ref": "#/definitions/SubItem"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Todo": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "object",
+          "example": "AEII9988SAJ"
+        },
+        "title": {
+          "type": "string",
+          "example": "Demo Todo"
+        },
+        "completed": {
+          "type": "boolean",
+          "example": false
+        },
+        "subItems": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/SubItem"
+          }
+        }
+      }
+    },
+    "TodoReq": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Demo Todo"
+        },
+        "completed": {
+          "type": "boolean",
+          "example": false
+        },
+        "subItems": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/SubItem"
+          }
+        }
+      }
+    },
+    "SubItemReq": {
+      "type": "object",
+      "properties": {
+        "todoItemId": {
+          "type": "string",
+          "description": "Parent Todo Item Id",
+          "example": "AEII9988SAJ"
+        },
+        "title": {
+          "type": "string",
+          "example": "Demo SubTodo"
+        },
+        "completed": {
+          "type": "boolean",
+          "example": "false"
+        }
+      }
+    },
+    "SubItem": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "object",
+          "example": "AEII9988SAJ"
+        },
+        "title": {
+          "type": "string",
+          "example": "Demo Todo"
+        },
+        "completed": {
+          "type": "boolean",
+          "example": "false"
+        }
+      }
+    },
+    "DeleteSubItemReq": {
+      "type": "object",
+      "properties": {
+        "todoItemId": {
+          "type": "string",
+          "description": "Parent Todo Item Id",
+          "example": "AEII9988SAJ"
+        },
+        "_id": {
+          "type": "string",
+          "description": "Sub Item Id",
+          "example": "AEII99324SAJ"
+        }
+      }
+    },
+    "AuthReq": {
+      "type": "object",
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "test@test.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "password"
+        }
+      }
+    },
+    "Auth": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "sjhdjahs87990sadhnaskdnk"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
