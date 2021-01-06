@@ -1,13 +1,14 @@
-version: "1"
+version: "3"
 services:
-  app:
+  be:
     container_name: server
     restart: always
     build: ./todo-api
+    env_file: ./todo-api/.env
     ports:
       - "5000:5000"
     links:
-      - mongo
+      - mongo:mb
   mongo:
     container_name: mongo
     image: mongo
@@ -15,3 +16,12 @@ services:
       - ./data:/data/db
     ports:
       - "27017:27017"
+  fe:
+    container_name: app
+    restart: always
+    build: ./todo-frontend
+    env_file: ./todo-frontend/.env
+    ports:
+      - "3000:3000"
+    links:
+      - be

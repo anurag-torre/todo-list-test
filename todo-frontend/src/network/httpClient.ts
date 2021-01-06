@@ -1,7 +1,7 @@
 import axios from "axios";
 import todoItem, { subItem } from "../interfaces/todoItem";
 
-const apiUrl = "http://localhost:5000/api";
+const apiUrl = process.env.SERVER_URL || "http://localhost:5000/api";
 
 axios.interceptors.request.use(function (config) {
   const token = window.sessionStorage.getItem("token");

@@ -22,7 +22,7 @@ export default function Auth({ setToken }: AuthProps) {
             data = await signup(userRef.current?.value, passRef.current?.value)
         }
 
-        if (data.status === 201) {
+        if (data.token) {
             setToken(data.token)
         } else {
             setError(data.data.message)

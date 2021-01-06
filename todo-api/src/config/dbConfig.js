@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
+const mongoConnectionString =
+  process.env.DB_URL || "mongodb://localhost:27017/torre";
 
 mongoose.connect(
-  "mongodb://localhost:27017/torre",
+  mongoConnectionString,
   { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
   (err, results) => {
     if (err) console.log(err);
